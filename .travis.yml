@@ -1,0 +1,24 @@
+# currently does not work on Travis because the electron browser
+# (the one being used when going headless) stops on `visit` and
+# refuses to go any further. This pull request presumably fixes things:
+# https://github.com/cypress-io/cypress/pull/3531
+language: node_js
+cache:
+  directories:
+    - $HOME/.npm
+    - node_modules
+node_js:
+  - '8'
+  - '10'
+install:
+  - npm i
+before_script:
+  - npm install -g cypress
+script:
+  - gatsby telemetry --disable
+  - npm run test:ci
+  - npm run test:e2e
+notifications:
+  email: false
+git:
+  depth: 5
